@@ -4,11 +4,18 @@
 
 ## 效果预览
 
-| 本科封面 | 研究生封面 |
-|:---:|:---:|
-| ![](docs/preview/cover-bachelor.png) | ![](docs/preview/cover-graduate.png) |
-| **正文（一/二/三级标题 + 公式 + 三线表 + 图）** | **参考文献（GB/T 7714 著者-出版年制）** |
-| ![](docs/preview/body-figtable.png) | ![](docs/preview/references.png) |
+<table>
+<tr><th width="50%">本科封面</th><th width="50%">研究生封面</th></tr>
+<tr>
+<td><img src="docs/preview/cover-bachelor.png" width="100%"></td>
+<td><img src="docs/preview/cover-graduate.png" width="100%"></td>
+</tr>
+<tr><th>正文（一/二/三级标题 + 公式 + 三线表 + 图）</th><th>参考文献（GB/T 7714 著者-出版年制）</th></tr>
+<tr>
+<td><img src="docs/preview/body-figtable.png" width="100%"></td>
+<td><img src="docs/preview/references.png" width="100%"></td>
+</tr>
+</table>
 
 ## 用法
 
