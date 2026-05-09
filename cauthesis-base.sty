@@ -143,18 +143,24 @@
 % ============================================================
 % 7. 章节标题样式（titlesec）
 % ============================================================
-% 一级：居中，黑体，三号 (16pt)，粗体；段前段后正文 1 行 (20pt)
+% 一级（章）：居中黑体三号粗体；论文惯例独立起页；
+% titleformat 内置 \vspace*{20pt} 保证页顶也有 1 行可见间距（titlespacing
+% 的 before 通过 \addvspace 实现，会在页顶被丢弃，所以单独靠它不够）。
 \newcommand{\cau@levelonefont}{\centering\heiti\sanhao\bfseries}
 \titleformat{\section}
-  {\cau@levelonefont}{\thesection}{1em}{}
-\titlespacing*{\section}{0pt}{20pt}{20pt}
+  {\vspace*{20pt}\cau@levelonefont}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{0pt}{20pt}
+% \section 自动 \clearpage（每一章另起一页）
+\let\cau@orig@section\section
+\renewcommand{\section}{\clearpage\cau@orig@section}
 
-% 二级：左对齐，黑体，四号 (14pt)，不加粗
+% 二级：左对齐，黑体，四号 (14pt)；段前段后 1 行；
+% 不会出现在页顶（前面必有 \section 标题），所以靠 titlespacing 即可。
 \titleformat{\subsection}
   {\heiti\sihao}{\thesubsection}{1em}{}
 \titlespacing*{\subsection}{0pt}{20pt}{20pt}
 
-% 三级：左对齐，黑体，小四号 (12pt)，不加粗
+% 三级：左对齐，黑体，小四号 (12pt)；段前段后 1 行；同上不会页顶
 \titleformat{\subsubsection}
   {\heiti\xiaosi}{\thesubsubsection}{1em}{}
 \titlespacing*{\subsubsection}{0pt}{20pt}{20pt}
