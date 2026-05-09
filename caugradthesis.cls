@@ -116,7 +116,6 @@
     \vspace{4em}%
     \noindent 学位论文作者签名：\underline{\hspace{8em}}\hfill 时间：\hspace{3em}年\hspace{2em}月\hspace{2em}日\par
   \endgroup
-  \vspace{3em}%
 }
 
 % ============================================================

@@ -291,8 +291,13 @@
 % ============================================================
 % 14. 共用 helper（特殊页面标题居中黑体三号加粗）
 % ============================================================
+% 段前/段后均按 CAU 规范取 1 行 (= 20pt)。
+% before 用 \vspace*：在页顶也不会被丢弃（保证摘要等独立页有 20pt 上方空间）。
+% after 用 \addvspace：与后续段距取最大值，避免叠加。
+% 与之相对，调用方不要再手动加 \vspace 在两个 \centerheading 之间，
+% 否则会与 before 的 20pt 叠加。
 \def\centerheading#1{%
-  \par\vspace*{20pt}{\centering\heiti\sanhao\bfseries #1\par}\vspace{20pt}%
+  \par\vspace*{20pt}{\centering\heiti\sanhao\bfseries #1\par}\addvspace{20pt}%
 }
 \def\coverlineuline#1{\underline{\makebox[12em][l]{\sihao\songti #1}}}
 % 顶部分类号/密级行的点线（匹配 Word 模板的 leader dots）
