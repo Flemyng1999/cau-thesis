@@ -158,16 +158,18 @@
 \let\cau@orig@section\section
 \renewcommand{\section}{\clearpage\cau@orig@section}
 
-% 二级：左对齐，黑体，四号 (14pt)；段前段后 1 行；
-% 不会出现在页顶（前面必有 \section 标题），所以靠 titlespacing 即可。
+% 二级：左对齐，黑体，四号 (14pt)；段前段后 1 行 (20pt)。
+% 二/三级在页顶（章节翻页后第一个内容是子标题时）也需要少量可见间距，
+% 但比一级小：靠 titleformat 的 \vspace* 提供页顶 rigid 部分，剩余通过
+% titlespacing 的 \addvspace 补足，使 mid-page 总段前正好 20pt 不叠加。
 \titleformat{\subsection}
-  {\heiti\sihao}{\thesubsection}{1em}{}
-\titlespacing*{\subsection}{0pt}{20pt}{20pt}
+  {\vspace*{10pt}\heiti\sihao}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{10pt}{20pt}
 
-% 三级：左对齐，黑体，小四号 (12pt)；段前段后 1 行；同上不会页顶
+% 三级：左对齐，黑体，小四号 (12pt)；段前段后 1 行 (20pt)
 \titleformat{\subsubsection}
-  {\heiti\xiaosi}{\thesubsubsection}{1em}{}
-\titlespacing*{\subsubsection}{0pt}{20pt}{20pt}
+  {\vspace*{8pt}\heiti\xiaosi}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{20pt}
 
 % 页眉 \rightmark 显示当前一级标题；研究生规范要求右侧为一级标题名称
 \renewcommand{\sectionmark}[1]{%
