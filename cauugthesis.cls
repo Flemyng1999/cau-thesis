@@ -48,10 +48,10 @@
 \newcommand{\makecover}{%
   \thispagestyle{empty}%
   \noindent\begin{minipage}[t][\dimexpr\textheight-12pt\relax][s]{\textwidth}%
-    \noindent\strut\par% baseline 锚点（minipage[t] 顶部需要有 strut 撑出基线，否则后续 \vspace* 会把内容推到下一页）
-    % 顶部占位（对齐研究生 2 行 \xiaosi 字段：~46pt ≈ 16.2mm）
-    \vspace*{16.2mm}%
-    \par\vspace*{12mm}
+    \noindent\strut\par% baseline 锚点；strut 自身占 ~20pt 视觉高度
+    % 顶部占位对齐 graduate 的 2 行 \xiaosi 字段（~46pt = 16.2mm）；
+    % strut 已贡献 ~7pt（一个 \xiaosi 行的基线高度差），故 vspace 减 ~3mm
+    \vspace*{13mm}%
     \begin{center}
       \includegraphics[width=10cm]{cau-title.pdf}\\[4mm]
       {\heiti\fontsize{18pt}{22pt}\selectfont\textbf{本科生毕业论文（设计）}}
