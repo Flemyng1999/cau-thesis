@@ -1,30 +1,3 @@
-cauthesis — China Agricultural University LaTeX thesis template
-Copyright (c) 2026 Yangming Feng (Flemyng1999)
-
-This work may be distributed and/or modified under the conditions of the
-LaTeX Project Public License, version 1.3c (LPPL-1.3c), reproduced below.
-The latest version of this license is at
-https://www.latex-project.org/lppl/lppl-1-3c/
-
-This work has the LPPL maintenance status `maintained'. The Current
-Maintainer is Yangming Feng (Flemyng1999).
-
-The Work consists of:
-
-    cauthesis-base.sty
-    cauugthesis.cls
-    caugradthesis.cls
-    caumthesis.cls
-    cauphdthesis.cls
-
-The CAU calligraphy "中国农业大学" in logo/cau-title.{jpg,pdf} is the
-property of China Agricultural University. It is included here for use
-with this template; redistribution outside the template's intended use
-should comply with the university's branding guidelines.
-
-
-================================================================
-
 The LaTeX Project Public License
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -440,3 +413,26 @@ Important Recommendations
    to comprise the Work and, in such a case, the licensee would be
    entitled to make reasonable conjectures as to which files comprise
    the Work.
+
+
+================================================================
+
+cauthesis — China Agricultural University LaTeX thesis template
+
+Copyright (c) 2026 Yangming Feng (Flemyng1999)
+
+This work has the LPPL maintenance status `maintained'.
+The Current Maintainer is Yangming Feng (Flemyng1999).
+
+The Work consists of:
+
+    cauthesis-base.sty
+    cauugthesis.cls
+    caugradthesis.cls
+    caumthesis.cls
+    cauphdthesis.cls
+
+The CAU calligraphy "中国农业大学" in logo/cau-title.{jpg,pdf} is the
+property of China Agricultural University. It is included here for use
+with this template; redistribution outside the template's intended use
+should comply with the university's branding guidelines.
