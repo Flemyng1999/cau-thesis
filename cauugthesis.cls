@@ -92,6 +92,7 @@
 % 作者简介（本科版：基本介绍/教育经历/在校期间发表/在校期间项目/奖励/其他）
 % ============================================================
 \newenvironment{authorinfo}{%
+  \clearpage
   \phantomsection\addcontentsline{toc}{section}{作者简介}%
   \markright{作者简介}%
   \centerheading{作者简介}%

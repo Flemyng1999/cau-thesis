@@ -314,6 +314,7 @@
 % ============================================================
 % 中文摘要
 \newenvironment{cnabstract}[1]{%
+  \clearpage
   \thispagestyle{cau-frontmatter}%
   \phantomsection\addcontentsline{toc}{section}{摘要}%
   \markright{摘要}%
@@ -331,6 +332,7 @@
 
 % 英文摘要
 \newenvironment{enabstract}[1]{%
+  \clearpage
   \thispagestyle{cau-frontmatter}%
   \phantomsection\addcontentsline{toc}{section}{Abstract}%
   \markright{Abstract}%
@@ -348,12 +350,14 @@
 
 % 目录
 \newcommand{\maketoc}{%
+  \clearpage
   \thispagestyle{cau-frontmatter}%
   \phantomsection\tableofcontents\clearpage
 }
 
 % 插图和附表清单（图、表分两小节列出，分别按章节顺序）
 \newcommand{\makefigurelist}{%
+  \clearpage
   \thispagestyle{cau-frontmatter}%
   \phantomsection\addcontentsline{toc}{section}{插图和附表清单}%
   \markright{插图和附表清单}%
@@ -371,14 +375,16 @@
   {\def\cau@symbollisttitle{主要符号和术语表}}
   {\def\cau@symbollisttitle{主要符号表}}
 \newenvironment{symbollist}{%
+  \clearpage
   \phantomsection\addcontentsline{toc}{section}{\cau@symbollisttitle}%
   \markright{\cau@symbollisttitle}%
   \centerheading{\cau@symbollisttitle}%
   \begin{tabular}{lll}%
 }{\end{tabular}\clearpage}
 
-% 致谢（首段缩进 2em）
+% 致谢（独立起页，首段缩进 2em）
 \newenvironment{acknowledgements}{%
+  \clearpage
   \phantomsection\addcontentsline{toc}{section}{致谢}%
   \markright{致谢}%
   \centerheading{致谢}%

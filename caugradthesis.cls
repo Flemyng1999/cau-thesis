@@ -140,6 +140,7 @@
 % 论文创新点（独立章节，前置部分）
 % ============================================================
 \newenvironment{innovation}{%
+  \clearpage
   \phantomsection\addcontentsline{toc}{section}{论文创新点}%
   \markright{论文创新点}%
   \centerheading{论文创新点}%
@@ -152,6 +153,7 @@
 % 作者简介（研究生版：在学期间发表论文 必填）
 % ============================================================
 \newenvironment{authorinfo}{%
+  \clearpage
   \phantomsection\addcontentsline{toc}{section}{作者简介}%
   \markright{作者简介}%
   \centerheading{作者简介}%
