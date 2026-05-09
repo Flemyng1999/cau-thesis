@@ -118,6 +118,7 @@
     \vspace{4em}%
     \noindent 学位论文作者签名：\underline{\hspace{8em}}\hfill 时间：\hspace{3em}年\hspace{2em}月\hspace{2em}日\par
   \endgroup
+  \vspace{4em}% 与"关于学位论文使用授权的说明"显式分隔（约 30mm，匹配 docx 视觉间距）
 }
 
 % ============================================================

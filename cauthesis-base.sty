@@ -143,13 +143,13 @@
 % ============================================================
 % 7. 章节标题样式（titlesec）
 % ============================================================
-% 一级（章）：居中黑体三号粗体；论文惯例独立起页；
-% titleformat 内置 \vspace*{20pt} 保证页顶也有 1 行可见间距（titlespacing
-% 的 before 通过 \addvspace 实现，会在页顶被丢弃，所以单独靠它不够）。
+% 一级（章）：居中黑体三号粗体；自动 \clearpage 独立起页；
+% titlespacing 的 before 用 \addvspace（页顶丢弃，章名靠 \topskip 落在
+% 顶边距下方一点点 ~35mm，与 docx 视觉一致；不再 rigid 推下去）。
 \newcommand{\cau@levelonefont}{\centering\heiti\sanhao\bfseries}
 \titleformat{\section}
-  {\vspace*{20pt}\cau@levelonefont}{\thesection}{1em}{}
-\titlespacing*{\section}{0pt}{0pt}{20pt}
+  {\cau@levelonefont}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{20pt}{20pt}
 % \section 自动 \clearpage（每一章另起一页）
 \let\cau@orig@section\section
 \renewcommand{\section}{\clearpage\cau@orig@section}
@@ -298,13 +298,13 @@
 % ============================================================
 % 14. 共用 helper（特殊页面标题居中黑体三号加粗）
 % ============================================================
-% 段前/段后均按 CAU 规范取 1 行 (= 20pt)。
-% before 用 \vspace*：在页顶也不会被丢弃（保证摘要等独立页有 20pt 上方空间）。
-% after 用 \addvspace：与后续段距取最大值，避免叠加。
-% 与之相对，调用方不要再手动加 \vspace 在两个 \centerheading 之间，
-% 否则会与 before 的 20pt 叠加。
+% 段前/段后均按 CAU 规范取 1 行 (= 20pt)，用 \addvspace 取最大值非叠加。
+% 页顶情况下 \addvspace 会被 LaTeX 丢弃，标题位置由 \topskip 决定 ——
+% 这与 docx 模板一致（封面后 / 独立页的标题靠近顶边距，不再额外下推）。
+% 调用方若想在两个 centerheading 之间保留更大间距（如独创性声明 + 关于
+% 学位论文使用授权的说明），需要在外层显式加 \vspace。
 \def\centerheading#1{%
-  \par\vspace*{20pt}{\centering\heiti\sanhao\bfseries #1\par}\addvspace{20pt}%
+  \par\addvspace{20pt}{\centering\heiti\sanhao\bfseries #1\par}\addvspace{20pt}%
 }
 \def\coverlineuline#1{\underline{\makebox[12em][l]{\sihao\songti #1}}}
 % 顶部分类号/密级行的点线（匹配 Word 模板的 leader dots）
