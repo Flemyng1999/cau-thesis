@@ -1,0 +1,88 @@
+% !TeX program = xelatex
+% 中国农业大学本科生毕业论文（设计）示例 — 文档结构编排
+% 编译：latexmk -xelatex main.tex
+% --------------------------------------------------------------
+% 写作分工：
+%   - 个人信息 / 占位变量 → info.tex
+%   - 各章节内容          → sections/*.tex
+%   - 参考文献条目        → refs/refs.bib
+%   - 本文件只负责加载和组织
+% --------------------------------------------------------------
+\documentclass{cauugthesis}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\graphicspath{{../../logo/}{figures/}}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\input{info}                            % 所有个人信息和复用变量都在这里
+
+\begin{document}
+
+% ---------- 前置部分 ----------
+\makecover
+\makedeclaration
+\frontmatterpages
+
+\begin{cnabstract}{【关键词一】；【关键词二】；【关键词三】；【关键词四】}
+【第一段：研究背景与问题。说明研究对象、应用场景和当前瓶颈。建议用 250--350 字交代为什么这个问题值得研究，避免在摘要中展开文献综述。】
+
+【第二段：数据与方法。说明研究区、数据来源、样本构建、核心模型或实验设计。可以按“本文以……为对象，构建……数据集，采用……方法，实现……”组织。】
+
+【第三段：主要结果。给出可核验的定量结果，如精度指标、对比提升、关键参数或显著性结论。没有最终数值时先用“【R2=】”“【RMSE=】”等占位，定稿前必须替换。】
+
+【第四段：结论与意义。概括方法贡献、适用范围和局限。摘要中不要引入正文没有支撑的新判断。】
+\end{cnabstract}
+
+\begin{enabstract}{【keyword one】; 【keyword two】; 【keyword three】; 【keyword four】}
+【Paragraph 1: Background and research gap. State the object, application scenario, and the limitation addressed by the thesis.】
+
+【Paragraph 2: Data and methods. Describe the study area, datasets, feature construction, model, and validation protocol.】
+
+【Paragraph 3: Main results. Report quantitative metrics and the most important empirical findings with placeholders replaced before submission.】
+
+【Paragraph 4: Conclusion and implications. Summarize the contribution, scope of application, and remaining limitations.】
+\end{enabstract}
+
+\maketoc
+\makefigurelist
+
+\begin{symbollist}
+  【符号】 & 【含义】 & 【单位】 \\
+  $x_i$ & 第 $i$ 个样本的输入特征 & -- \\
+  $y_i$ & 第 $i$ 个样本的观测值 & 【单位】 \\
+  $\hat{y}_i$ & 第 $i$ 个样本的预测值 & 【单位】 \\
+\end{symbollist}
+
+% ---------- 正文 ----------
+\startmainbody
+
+\input{sections/01_intro.tex}
+\input{sections/02_data.tex}
+\input{sections/03_method.tex}
+\input{sections/04_results.tex}
+\input{sections/05_conclusion.tex}
+
+% ---------- 后置部分 ----------
+\bibliography{refs/refs}
+
+\begin{acknowledgements}
+【致谢正文。建议感谢导师、课题组、数据或实验支持人员、同学朋友和家人。避免使用夸张措辞，保持真实、具体、简洁。】
+
+\begin{flushright}
+  \textit{\thethesisauthor} \\
+  \thethesisdate
+\end{flushright}
+\end{acknowledgements}
+
+\begin{appendixsection}{补充材料}
+\input{sections/06_appendix.tex}
+\end{appendixsection}
+
+\begin{authorinfo}
+\input{sections/07_authorinfo.tex}
+\end{authorinfo}
+
+\end{document}

@@ -1,0 +1,99 @@
+% !TeX program = xelatex
+% 中国农业大学研究生学位论文示例 — 文档结构编排
+% 编译：latexmk -xelatex main.tex
+% --------------------------------------------------------------
+% 写作分工：
+%   - 个人信息 / 占位变量 → info.tex
+%   - 各章节内容          → sections/*.tex
+%   - 参考文献条目        → refs/refs.bib
+%   - 本文件只负责加载和组织
+% --------------------------------------------------------------
+\documentclass{caugradthesis}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\graphicspath{{../../logo/}{figures/}}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\input{info}                            % 所有个人信息和复用变量都在这里
+
+\begin{document}
+
+% ---------- 前置部分 ----------
+\makecover
+\makedeclaration
+\makeauthorization
+\frontmatterpages
+
+\begin{cnabstract}{【关键词一】；【关键词二】；【关键词三】；【关键词四】}
+【研究生摘要应突出目的、方法、结果和结论。硕士论文摘要一般不超过 800 字，博士论文摘要一般不超过 1500 字。第一段写研究目的与问题背景，说明论文试图解决的科学问题或工程问题。】
+
+【第二段写材料、数据与研究方法。应交代研究对象、数据来源、实验设计、模型或分析方法，使摘要具备独立性。】
+
+【第三段写主要结果。给出关键定量指标，例如精度、误差、显著性、提升幅度或核心参数。所有占位数值在定稿前必须替换。】
+
+【第四段写结论和创新性认识。应突出本论文的新见解或创造性成果，同时明确适用范围。】
+\end{cnabstract}
+
+\begin{enabstract}{【keyword one】; 【keyword two】; 【keyword three】; 【keyword four】}
+【The master's abstract should correspond to the Chinese abstract. State the research objective and the problem addressed by the thesis.】
+
+【Describe the study materials, datasets, experimental design, model, and validation protocol.】
+
+【Report the main quantitative results and replace all placeholders before submission.】
+
+【Summarize the conclusion, contribution, and scope of application.】
+\end{enabstract}
+
+\maketoc
+\makefigurelist
+
+\begin{symbollist}
+  【符号】 & 【含义】 & 【单位】 \\
+  $x_i$ & 第 $i$ 个样本的输入特征 & -- \\
+  $y_i$ & 第 $i$ 个样本的观测值 & 【单位】 \\
+  $\hat{y}_i$ & 第 $i$ 个样本的预测值 & 【单位】 \\
+\end{symbollist}
+
+\begin{innovation}
+【研究生论文创新点建议单独列 2--4 条，每条说明“创新内容”和“证据来源”。】
+
+（1）【数据或实验创新：说明新增数据、处理流程、样本构建或质量控制的贡献。】
+
+（2）【方法创新：说明模型、算法、指标体系或实验设计相较已有工作的改进。】
+
+（3）【应用创新：说明该方法对学科问题或实际场景的支撑价值。】
+\end{innovation}
+
+% ---------- 正文 ----------
+\startmainbody
+
+\input{sections/01_intro.tex}
+\input{sections/02_data.tex}
+\input{sections/03_method.tex}
+\input{sections/04_results.tex}
+\input{sections/05_conclusion.tex}
+
+% ---------- 后置部分 ----------
+\bibliography{refs/refs}
+
+\begin{acknowledgements}
+【致谢对象限于对课题研究、学位论文完成等方面有较重要帮助的人员。建议感谢导师、课题组、项目或数据支持人员、同学朋友和家人。】
+
+\begin{flushright}
+  \textit{\thethesisauthor} \\
+  \thethesisdate
+\end{flushright}
+\end{acknowledgements}
+
+\begin{appendixsection}{补充材料}
+\input{sections/06_appendix.tex}
+\end{appendixsection}
+
+\begin{authorinfo}
+\input{sections/07_authorinfo.tex}
+\end{authorinfo}
+
+\end{document}

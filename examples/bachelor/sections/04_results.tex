@@ -1,0 +1,82 @@
+\section{结果与分析}\label{ch:results}
+
+\subsection{数据统计特征}
+
+【本节填写数据分布和质量检查结果。建议先描述样本量、均值、范围和异常值，再解释这些统计特征对建模的影响。】
+
+样本统计结果见表\ref{tab:sample-stat}。从示例结果可以看出，不同数据子集在样本量和目标变量均值上存在差异，因此后续建模需要关注数据划分是否引入偏差。
+
+\begin{table}[ht]
+  \centering
+  \caption{样本统计信息示例}
+  \label{tab:sample-stat}
+  \begin{tabular}{lrrrr}
+    \toprule
+    数据子集 & 样本量 & 均值 & 标准差 & 范围 \\
+    \midrule
+    训练集 & 【填写】 & 【填写】 & 【填写】 & 【填写】 \\
+    验证集 & 【填写】 & 【填写】 & 【填写】 & 【填写】 \\
+    测试集 & 【填写】 & 【填写】 & 【填写】 & 【填写】 \\
+    \bottomrule
+  \end{tabular}
+  \tablenote{表中数值为占位示例，定稿前应替换为真实统计结果。}
+\end{table}
+
+\subsection{模型精度评价}
+
+【本节填写核心结果。建议所有主要结论都绑定表格或图，避免只给定性描述。】
+
+图\ref{fig:result-map}展示了模型预测结果的空间分布。可以看出，预测值在【高值区域】和【低值区域】之间存在明显差异，说明模型能够刻画研究对象的空间异质性。
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.78\textwidth]{fig1.png}
+  \caption{模型预测结果空间分布示例}
+  \label{fig:result-map}
+  \figurenote{底图为示例图片，定稿时应替换为论文真实结果图，并在图注中说明颜色、符号或分组含义。}
+\end{figure}
+
+不同模型或不同实验方案的精度对比如表\ref{tab:model-performance}所示。结果表明，【模型 A】在测试集上取得最优表现，说明【解释原因】。
+
+\begin{table}[ht]
+  \centering
+  \caption{模型性能对比示例}
+  \label{tab:model-performance}
+  \begin{tabular}{lrrr}
+    \toprule
+    方法 & $R^2$ & RMSE & MAE \\
+    \midrule
+    基准模型 & 【填写】 & 【填写】 & 【填写】 \\
+    对比模型 & 【填写】 & 【填写】 & 【填写】 \\
+    本文方法 & 【填写】 & 【填写】 & 【填写】 \\
+    \bottomrule
+  \end{tabular}
+  \tablenote{$R^2$ 越大表示拟合效果越好，RMSE 和 MAE 越小表示预测误差越低。}
+\end{table}
+
+\subsection{消融实验}
+
+【若论文包含模型改进，建议增加消融实验。每次只移除或替换一个组件，说明该组件是否真的有效。】
+
+消融实验结果见表\ref{tab:ablation}。与完整方案相比，移除【组件 A】后精度下降，说明该组件对模型性能具有贡献。
+
+\begin{table}[ht]
+  \centering
+  \caption{消融实验结果示例}
+  \label{tab:ablation}
+  \begin{tabular}{lrrr}
+    \toprule
+    实验方案 & $R^2$ & RMSE & 相对变化 \\
+    \midrule
+    完整方案 & 【填写】 & 【填写】 & -- \\
+    去除组件 A & 【填写】 & 【填写】 & 【填写】 \\
+    去除组件 B & 【填写】 & 【填写】 & 【填写】 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{讨论}
+
+【讨论不是重复结果，而是解释结果为什么发生、与已有研究是否一致、限制在哪里。建议按“现象--原因--证据--影响”组织。】
+
+本文结果与已有研究中关于【现象】的结论基本一致\citep{meyer2021predicting}。可能原因在于【机制解释】。同时，本文仍存在【数据覆盖/模型假设/验证设计】方面的限制，后续需要通过更多样本或更严格的独立验证进一步检验。

@@ -1,0 +1,6 @@
+$pdf_mode = 5;
+$xelatex = 'xelatex -interaction=nonstopmode -synctex=1 -halt-on-error %O %S';
+$bibtex_use = 2;
+$clean_ext = 'synctex.gz run.xml bbl bcf';
+
+$ENV{'TEXINPUTS'} = '../..:../../logo:' . ($ENV{'TEXINPUTS'} // '');

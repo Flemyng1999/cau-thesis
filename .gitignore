@@ -1,0 +1,33 @@
+# LaTeX 编译产物
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+*.pdf
+!examples/*/main.pdf
+!logo/cau-title.pdf
+!docs/specs/*.pdf
+
+# Office 临时锁文件
+~$*
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+._*
+Thumbs.db
+
+# Claude Code
+CLAUDE.md
+.claude/

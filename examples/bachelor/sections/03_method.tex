@@ -1,0 +1,67 @@
+\section{研究方法}\label{ch:method}
+
+\subsection{总体框架}
+
+【本节填写方法流程。建议先给总体框架，再分别介绍特征、模型、训练和评价。】
+
+本文方法由四部分组成：样本构建、特征提取、模型训练和精度评价。给定样本集合 $\{(x_i,y_i)\}_{i=1}^{n}$，其中 $x_i$ 为输入特征，$y_i$ 为目标变量，模型学习映射函数 $f(\cdot)$，并输出预测值 $\hat{y}_i=f(x_i)$。
+
+\subsection{特征构建}
+
+【填写输入特征。若使用遥感影像，可写波段、指数、纹理、结构特征；若使用表格数据，可写统计量、类别变量编码和衍生变量。】
+
+特征构建遵循“物理含义明确、尺度一致、避免冗余”的原则。表\ref{tab:feature-groups}列出了示例特征组，实际使用时应替换为论文真实特征。
+
+\begin{table}[ht]
+  \centering
+  \caption{特征组示例}
+  \label{tab:feature-groups}
+  \begin{tabular}{lll}
+    \toprule
+    特征组 & 示例变量 & 含义 \\
+    \midrule
+    原始观测 & 【变量 1--变量 k】 & 【直接观测信息】 \\
+    统计特征 & 均值、标准差、分位数 & 【局部或时间窗口统计】 \\
+    指数特征 & 【指数 A】、【指数 B】 & 【组合变量或机理指标】 \\
+    辅助特征 & 【地形/时间/类别】 & 【解释异质性】 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{模型构建}
+
+【填写模型名称、输入输出、关键参数和训练策略。不要只写软件包名称，要说明为什么该模型适合本问题。】
+
+\subsubsection{模型输入与输出}
+
+【三级标题示例。这里可说明输入张量、特征表、图像块或序列数据的形状，以及模型输出的变量含义。】
+
+设模型输入为 $x_i$，输出为 $\hat{y}_i$。若输入包含多源数据，应分别说明各数据源的维度、单位、时间或空间对齐方式。
+
+\subsubsection{训练策略}
+
+【三级标题示例。这里可说明训练集、验证集、测试集划分，损失函数、优化器、学习率、随机种子和早停策略。】
+
+本文采用【模型名称】建立输入特征与目标变量之间的非线性关系。模型训练以均方误差为基础损失函数：
+\begin{equation}
+\mathcal{L}_{\mathrm{MSE}} = \frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2.
+\end{equation}
+
+为提升结果稳定性，训练过程采用【交叉验证/重复实验/独立测试集】。所有超参数仅在训练集和验证集上确定，测试集仅用于最终性能报告。
+
+\subsection{评价指标}
+
+【填写评价指标。回归问题常用 R2、RMSE、MAE；分类问题可替换为 Accuracy、F1、AUC 等。】
+
+本文采用决定系数 $R^2$、均方根误差（RMSE）和平均绝对误差（MAE）评价模型精度：
+\begin{equation}
+R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(y_i-\bar{y})^2},
+\end{equation}
+\begin{equation}
+\mathrm{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2},
+\end{equation}
+\begin{equation}
+\mathrm{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y}_i|.
+\end{equation}
+
+其中，$\bar{y}$ 为观测值均值。$R^2$ 越接近 1 表明模型解释能力越强，RMSE 和 MAE 越小表明预测误差越低。

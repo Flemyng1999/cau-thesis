@@ -1,0 +1,446 @@
+%%
+%% cauthesis-base.sty — 中国农业大学论文模板共享配置
+%%
+%% 本文件给 cauugthesis.cls (本科)、caumthesis.cls (硕士)、cauphdthesis.cls (博士)
+%% 三个 cls 共用，包含字体、版芯、页眉页脚、章节、目录、图表、参考文献等通用配置。
+%% 各 cls 在加载本 .sty 后再定义自己独有的内容（封面、特殊页眉文字、授权页等）。
+%%
+%% Copyright (c) 2026 Yangming Feng (Flemyng1999)
+%% License: LPPL 1.3c — see LICENSE
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cauthesis-base}[2026/05/09 CAU Thesis common base v1.0]
+
+% ============================================================
+% 0. 各 cls 通过以下命令传入差异化内容（cls 必须在 \RequirePackage{cauthesis-base} 之前定义）
+% ============================================================
+% \def\cauthesis@headertext{...}    页眉左侧文本（如：中国农业大学博士学位论文）
+% \def\cauthesis@type{undergraduate|master|doctor}   论文类型（影响摘要、目录等差异）
+
+\providecommand{\cauthesis@headertext}{中国农业大学学位论文}
+\providecommand{\cauthesis@type}{undergraduate}
+
+% ============================================================
+% 1. 宏包
+% ============================================================
+\RequirePackage{fontspec}
+\RequirePackage{xeCJK}
+\RequirePackage{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{titlesec}
+\RequirePackage{tocloft}
+\RequirePackage{setspace}
+\RequirePackage{caption}
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{hyperref}
+\RequirePackage{natbib}
+\RequirePackage{indentfirst}
+\RequirePackage{array}
+\RequirePackage{calc}
+\RequirePackage{etoolbox}
+\RequirePackage{ifthen}
+\RequirePackage{emptypage}
+\RequirePackage{zhnumber}
+\RequirePackage[section]{placeins}
+\RequirePackage[normalem]{ulem}
+% Pandoc 兼容（如用 pandoc 转 docx 后保留这些占位命令）
+\providecommand{\real}[1]{#1}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\passthrough}[1]{#1}
+
+% ============================================================
+% 2. 字体（Fandol 系列：TeX Live 自带，开源合规）
+% ============================================================
+\IfFontExistsTF{TeX Gyre Termes}
+  {\setmainfont{TeX Gyre Termes}}
+  {\setmainfont{Times New Roman}}
+\IfFontExistsTF{TeX Gyre Heros}
+  {\setsansfont{TeX Gyre Heros}}
+  {\setsansfont{Helvetica}}
+\IfFontExistsTF{TeX Gyre Cursor}
+  {\setmonofont{TeX Gyre Cursor}}
+  {\setmonofont{Courier}}
+
+\IfFontExistsTF{Songti SC}
+  {%
+    \setCJKmainfont[BoldFont=Songti SC Bold, ItalicFont=Noto Sans Kaithi]{Songti SC}
+    \setCJKsansfont{Heiti SC}
+    \setCJKmonofont{Songti SC}
+    \newCJKfontfamily\songti{Songti SC}
+    \newCJKfontfamily\heiti{Heiti SC}
+    \newCJKfontfamily\kaishu{Noto Sans Kaithi}
+    \newCJKfontfamily\fangsong{Songti SC}
+  }
+  {\IfFontExistsTF{FandolSong}
+  {%
+    \setCJKmainfont[BoldFont=FandolHei, ItalicFont=FandolKai]{FandolSong}
+    \setCJKsansfont{FandolHei}
+    \setCJKmonofont{FandolFang}
+    \newCJKfontfamily\songti{FandolSong}
+    \newCJKfontfamily\heiti{FandolHei}
+    \newCJKfontfamily\kaishu{FandolKai}
+    \newCJKfontfamily\fangsong{FandolFang}
+  }
+  {%
+    \setCJKmainfont[BoldFont=Songti SC Bold, ItalicFont=Noto Sans Kaithi]{Songti SC}
+    \setCJKsansfont{Heiti SC}
+    \setCJKmonofont{Songti SC}
+    \newCJKfontfamily\songti{Songti SC}
+    \newCJKfontfamily\heiti{Heiti SC}
+    \newCJKfontfamily\kaishu{Noto Sans Kaithi}
+    \newCJKfontfamily\fangsong{Songti SC}
+  }}
+% 封面校名图用大字楷书（如不用图、改用字体）
+\IfFontExistsTF{LXGW ZhenKai GB}
+  {\newCJKfontfamily\coverkaishu{LXGW ZhenKai GB}}
+  {\newCJKfontfamily\coverkaishu{FandolKai}}
+
+% ============================================================
+% 3. 版芯（CAU 规范：左 30 / 右 25 / 上 30 / 下 25 mm；页眉 23mm，页脚 18mm）
+% headheight + headsep = 30mm - 23mm = 7mm（页眉顶到页面顶 23mm）
+% footskip = 25mm - 18mm = 7mm（页脚基线到页面底 18mm）
+% ============================================================
+\geometry{
+  a4paper,
+  left   = 30mm,
+  right  = 25mm,
+  top    = 30mm,
+  bottom = 25mm,
+  headheight = 5mm,
+  headsep    = 2mm,
+  footskip   = 7mm,
+}
+
+% ============================================================
+% 4. 行距（CAU 规范：正文及图表题等正文性内容 20pt；目录条目 18pt）
+% ============================================================
+\renewcommand{\baselinestretch}{1.389}
+\newcommand{\cau@bodybaselineskip}{20pt}
+\newcommand{\cau@tocbaselineskip}{18pt}
+
+% ---- 首行缩进 2 字符 ----
+\setlength{\parindent}{2em}
+
+% ============================================================
+% 5. 字号命令（中文字号对照）
+% ============================================================
+\newcommand{\chuhao}{\fontsize{42pt}{50.4pt}\selectfont}
+\newcommand{\yihao}{\fontsize{26pt}{31.2pt}\selectfont}
+\newcommand{\xiaoyi}{\fontsize{24pt}{28.8pt}\selectfont}
+\newcommand{\erhao}{\fontsize{22pt}{26.4pt}\selectfont}
+\newcommand{\xiaoer}{\fontsize{18pt}{21.6pt}\selectfont}
+\newcommand{\sanhao}{\fontsize{16pt}{19.2pt}\selectfont}
+\newcommand{\xiaosan}{\fontsize{15pt}{\cau@bodybaselineskip}\selectfont}
+\newcommand{\sihao}{\fontsize{14pt}{\cau@bodybaselineskip}\selectfont}
+\newcommand{\bansi}{\fontsize{13pt}{\cau@bodybaselineskip}\selectfont}
+\newcommand{\xiaosi}{\fontsize{12pt}{\cau@bodybaselineskip}\selectfont}
+\newcommand{\wuhao}{\fontsize{10.5pt}{\cau@bodybaselineskip}\selectfont}
+\newcommand{\xiaowu}{\fontsize{9pt}{\cau@bodybaselineskip}\selectfont}
+\newcommand{\liuhao}{\fontsize{7.5pt}{9pt}\selectfont}
+\newcommand{\cau@headfootfont}{\fontsize{9pt}{10.8pt}\selectfont\songti}
+
+% ============================================================
+% 6. 章节编号（一级中文"第N章"，二三级阿拉伯）
+% ============================================================
+\renewcommand{\thesection}{第\zhnum{section}章}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
+% ============================================================
+% 7. 章节标题样式（titlesec）
+% ============================================================
+% 一级：居中，黑体，三号 (16pt)，粗体；段前段后正文 1 行 (20pt)
+\newcommand{\cau@levelonefont}{\centering\heiti\sanhao\bfseries}
+\titleformat{\section}
+  {\cau@levelonefont}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{20pt}{20pt}
+
+% 二级：左对齐，黑体，四号 (14pt)，不加粗
+\titleformat{\subsection}
+  {\heiti\sihao}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{20pt}{20pt}
+
+% 三级：左对齐，黑体，小四号 (12pt)，不加粗
+\titleformat{\subsubsection}
+  {\heiti\xiaosi}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{20pt}{20pt}
+
+% 页眉 \rightmark 显示当前一级标题；研究生规范要求右侧为一级标题名称
+\renewcommand{\sectionmark}[1]{%
+  \ifdefstring{\cauthesis@type}{undergraduate}
+    {\markright{\thesection\quad #1}}
+    {\markright{#1}}%
+}
+
+% ============================================================
+% 8. 页眉页脚（mainmatter / frontmatter 双 fancypagestyle）
+% ============================================================
+\pagestyle{fancy}
+\fancyhf{}
+
+% mainmatter（正文章节）：左标题 + 右"第N章 标题" + 文武线 + 居中页码
+\fancypagestyle{cau-mainmatter}{%
+  \fancyhf{}%
+  \fancyhead[L]{\cau@headfootfont \cauthesis@headertext}%
+  \fancyhead[R]{\cau@headfootfont \nouppercase{\rightmark}}%
+  \fancyfoot[C]{\cau@headfootfont \thepage}%
+  % 上粗下细文武线（CAU 规范 ~3 磅）：上 1.5pt + 间距 1pt + 下 0.5pt
+  \renewcommand{\headrule}{%
+    \hrule\@height1.5pt\@width\headwidth\vskip1pt%
+    \hrule\@height0.5pt\@width\headwidth\vskip-3pt%
+  }%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
+% frontmatter（摘要/目录/图清单等）：无页眉，仅居中罗马页码
+\fancypagestyle{cau-frontmatter}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\cau@headfootfont \thepage}%
+  \renewcommand{\headrule}{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
+\pagestyle{cau-mainmatter}
+
+% 页码切换命令
+\newcommand{\frontmatterpages}{\pagenumbering{Roman}\setcounter{page}{1}\pagestyle{cau-frontmatter}}
+\newcommand{\mainmatterpages}{\pagenumbering{arabic}\setcounter{page}{1}\pagestyle{cau-mainmatter}}
+
+% ============================================================
+% 9. 目录
+% ============================================================
+\renewcommand{\contentsname}{目录}
+\renewcommand{\cfttoctitlefont}{\hfill\heiti\sanhao\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\setlength{\cftbeforetoctitleskip}{20pt}
+\setlength{\cftaftertoctitleskip}{20pt}
+\renewcommand{\cftsecfont}{\songti\fontsize{14pt}{\cau@tocbaselineskip}\selectfont}
+\renewcommand{\cftsecpagefont}{\songti\fontsize{14pt}{\cau@tocbaselineskip}\selectfont}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftsecindent}{0pt}
+\setlength{\cftsubsecindent}{2em}
+\renewcommand{\cftsubsecfont}{\songti\fontsize{12pt}{\cau@tocbaselineskip}\selectfont}
+\renewcommand{\cftsubsecpagefont}{\songti\fontsize{12pt}{\cau@tocbaselineskip}\selectfont}
+\setlength{\cftsubsubsecindent}{4.5em}
+\renewcommand{\cftsubsubsecfont}{\songti\fontsize{12pt}{\cau@tocbaselineskip}\selectfont}
+\renewcommand{\cftsubsubsecpagefont}{\songti\fontsize{12pt}{\cau@tocbaselineskip}\selectfont}
+% 中文章号宽度（"第一章" 需 ~4em，否则 tocloft 会把标题换行）
+\setlength{\cftsecnumwidth}{4em}
+\setlength{\cftsubsecnumwidth}{3em}
+\setlength{\cftsubsubsecnumwidth}{4em}
+% 目录条目间不加额外段前空白，统一 18pt 行距（匹配 Word 模板）
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
+\setlength{\cftbeforesubsubsecskip}{0pt}
+
+% ============================================================
+% 10. 图表 caption（CAU 规范：黑体五号 居中，图下方表上方）
+% ============================================================
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\renewcommand{\listfigurename}{插图清单}
+\renewcommand{\listtablename}{附表清单}
+\DeclareCaptionFont{cauwuheiti}{\heiti\wuhao}
+\captionsetup{font=cauwuheiti, labelsep=space, justification=centering, singlelinecheck=true}
+\captionsetup[figure]{position=below}
+\captionsetup[table]{position=above}
+
+% 图表公式编号按章：图 1-1, 表 2-2, 公式 3-10
+\renewcommand{\thefigure}{\arabic{section}-\arabic{figure}}
+\renewcommand{\thetable}{\arabic{section}-\arabic{table}}
+\renewcommand{\theequation}{\arabic{section}-\arabic{equation}}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\@addtoreset{equation}{section}
+
+% ============================================================
+% 11. 三线表 + 表内自动五号宋体（CAU 规范）
+% ============================================================
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\lightrulewidth}{0.75pt}
+\setlength{\cmidrulewidth}{0.75pt}
+\AddToHook{env/tabular/begin}{\wuhao\songti}
+\AddToHook{env/longtable/begin}{\wuhao\songti}
+% 图注/表注：小五号宋体，首行缩进 2 字符（按正文字号计），后续行回到左边界
+\newcommand{\figurenote}[1]{%
+  \par\noindent\hspace*{2em}{\xiaowu\songti 注：#1\par}%
+}
+\newcommand{\tablenote}[1]{%
+  \par\noindent\hspace*{2em}{\xiaowu\songti 注：#1\par}%
+}
+
+% ============================================================
+% 12. 参考文献（natbib + GB/T 7714-2015）
+% 研究生：著者-出版年制（caugradthesis）
+% 本科生：顺序编码制 [1] 上标（cauugthesis；规范要求“置于文字末尾右上标”）
+% ============================================================
+\ifdefstring{\cauthesis@type}{undergraduate}{%
+  \bibliographystyle{gbt7714-numerical}%
+  \setcitestyle{numbers,square,super,sort&compress,citesep={,}}%
+}{%
+  \bibliographystyle{gbt7714-author-year}%
+  \setcitestyle{authoryear,round,semicolon,aysep={,},yysep={,}}%
+}
+\renewcommand{\bibfont}{\wuhao\songti}
+% 参考文献条目内/条目间统一 20pt 行距（\wuhao 已设置 baseline=20pt，禁用条目间额外空白）
+\setlength{\bibsep}{0pt}
+
+% ============================================================
+% 13. hyperref 配置
+% ============================================================
+\hypersetup{
+  colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black,
+  bookmarksnumbered=true, bookmarksopen=true,
+}
+
+% ============================================================
+% 14. 共用 helper（特殊页面标题居中黑体三号加粗）
+% ============================================================
+\def\centerheading#1{%
+  \par\vspace*{20pt}{\centering\heiti\sanhao\bfseries #1\par}\vspace{20pt}%
+}
+\def\coverlineuline#1{\underline{\makebox[12em][l]{\sihao\songti #1}}}
+% 顶部分类号/密级行的点线（匹配 Word 模板的 leader dots）
+\def\coverdotuline#1#2{\dotuline{\makebox[#1][l]{\sihao\songti\hspace{0.3em}#2}}}
+
+% ============================================================
+% 15. 共用环境（所有 cls 都用）
+% ============================================================
+% 中文摘要
+\newenvironment{cnabstract}[1]{%
+  \thispagestyle{cau-frontmatter}%
+  \phantomsection\addcontentsline{toc}{section}{摘要}%
+  \markright{摘要}%
+  \centerheading{摘要}%
+  \def\@cnkeywords{#1}%
+  \xiaosi\songti
+  \setlength{\parindent}{2em}%
+  \setlength{\parskip}{0pt}%
+  \par
+}{%
+  \par\vspace{1em}%
+  {\noindent\xiaosi\songti\textbf{关键词：}\@cnkeywords}%
+  \clearpage
+}
+
+% 英文摘要
+\newenvironment{enabstract}[1]{%
+  \thispagestyle{cau-frontmatter}%
+  \phantomsection\addcontentsline{toc}{section}{Abstract}%
+  \markright{Abstract}%
+  \centerheading{Abstract}%
+  \def\@enkeywords{#1}%
+  \xiaosi
+  \setlength{\parindent}{2em}%
+  \setlength{\parskip}{0pt}%
+  \par
+}{%
+  \par\vspace{1em}%
+  {\noindent\xiaosi\textbf{Key words: }\@enkeywords}%
+  \clearpage
+}
+
+% 目录
+\newcommand{\maketoc}{%
+  \thispagestyle{cau-frontmatter}%
+  \phantomsection\tableofcontents\clearpage
+}
+
+% 插图和附表清单（图、表分两小节列出，分别按章节顺序）
+\newcommand{\makefigurelist}{%
+  \thispagestyle{cau-frontmatter}%
+  \phantomsection\addcontentsline{toc}{section}{插图和附表清单}%
+  \markright{插图和附表清单}%
+  \centerheading{插图和附表清单}%
+  {\heiti\sihao 插图清单}\par\vspace{6pt}%
+  \@starttoc{lof}%
+  \par\vspace{12pt}%
+  {\heiti\sihao 附表清单}\par\vspace{6pt}%
+  \@starttoc{lot}%
+  \clearpage
+}
+
+% 主要符号表（本科称“主要符号和术语表”，研究生称“主要符号表”）
+\ifdefstring{\cauthesis@type}{undergraduate}
+  {\def\cau@symbollisttitle{主要符号和术语表}}
+  {\def\cau@symbollisttitle{主要符号表}}
+\newenvironment{symbollist}{%
+  \phantomsection\addcontentsline{toc}{section}{\cau@symbollisttitle}%
+  \markright{\cau@symbollisttitle}%
+  \centerheading{\cau@symbollisttitle}%
+  \begin{tabular}{lll}%
+}{\end{tabular}\clearpage}
+
+% 致谢（首段缩进 2em）
+\newenvironment{acknowledgements}{%
+  \phantomsection\addcontentsline{toc}{section}{致谢}%
+  \markright{致谢}%
+  \centerheading{致谢}%
+  \xiaosi\songti
+  \setlength{\parindent}{2em}%
+  \par
+}{\clearpage}
+
+% 附录环境（A/B/C 编号）
+\newcounter{cauappendixctr}
+\setcounter{cauappendixctr}{0}
+\newenvironment{appendixsection}[1]{%
+  \clearpage
+  \stepcounter{cauappendixctr}%
+  \phantomsection\addcontentsline{toc}{section}{附录\Alph{cauappendixctr}\quad #1}%
+  \markright{附录\Alph{cauappendixctr}\quad #1}%
+  \centerheading{附录\Alph{cauappendixctr}\quad #1}%
+  \setlength{\parindent}{2em}\xiaosi\songti
+}{\clearpage}
+
+% 参考文献标题（natbib \bibliography 自动调用）
+\renewcommand{\bibsection}{%
+  \phantomsection\addcontentsline{toc}{section}{参考文献}%
+  \markright{参考文献}%
+  \centerheading{参考文献}%
+}
+
+% 正文开始（切换页码）
+\newcommand{\startmainbody}{\mainmatterpages\setcounter{section}{0}}
+
+% ============================================================
+% 16. 模块化 / SSOT：封面字段 getter + 通用 key-value 变量
+% ============================================================
+% 封面字段在 cls 中以 \def\@xxx{...} 内部存储，下面把共用字段
+% 暴露为正文可调用的 \thethesisxxx getter。各 cls 视需要追加自己
+% 独有字段（如研究生的 \@studentid 等）。
+\AtBeginDocument{%
+  \@ifundefined{@thesistitle}{}{\let\thethesistitle\@thesistitle}%
+  \@ifundefined{@thesistitleen}{}{\let\thethesistitleen\@thesistitleen}%
+  \@ifundefined{@thesisauthor}{}{\let\thethesisauthor\@thesisauthor}%
+  \@ifundefined{@advisor}{}{\let\thethesisadvisor\@advisor}%
+  \@ifundefined{@coadvisor}{}{\let\thethesiscoadvisor\@coadvisor}%
+  \@ifundefined{@major}{}{\let\thethesismajor\@major}%
+  \@ifundefined{@college}{}{\let\thethesiscollege\@college}%
+  \@ifundefined{@thesisdate}{}{\let\thethesisdate\@thesisdate}%
+  % 研究生特有字段（cls 未定义时跳过）
+  \@ifundefined{@studentid}{}{\let\thethesisstudentid\@studentid}%
+  \@ifundefined{@classify}{}{\let\thethesisclassify\@classify}%
+  \@ifundefined{@unitcode}{}{\let\thethesisunitcode\@unitcode}%
+  \@ifundefined{@confidlevel}{}{\let\thethesisconfidlevel\@confidlevel}%
+  \@ifundefined{@thesisdegree}{}{\let\thethesisdegree\@thesisdegree}%
+  \@ifundefined{@degreecategory}{}{\let\thethesisdegreecategory\@degreecategory}%
+  \@ifundefined{@researchfield}{}{\let\thethesisresearchfield\@researchfield}%
+  \@ifundefined{@fieldname}{}{\let\thethesisfieldname\@fieldname}%
+}
+
+% 通用 key-value 变量：\thesisvar{key}{value} 注册一次，\thevar{key} 引用
+% 适用于研究对象、方法名称、数据集、关键参数等正文里反复出现的占位串。
+% 未注册的 key 会展开为空，并在编译日志里给出警告便于排查。
+\newcommand{\thesisvar}[2]{\@namedef{cau@var@#1}{#2}}
+\newcommand{\thevar}[1]{%
+  \@ifundefined{cau@var@#1}{%
+    \PackageWarning{cauthesis-base}{thesisvar `#1' undefined; expanded to empty}%
+  }{\@nameuse{cau@var@#1}}%
+}
+
+\endinput
