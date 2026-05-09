@@ -24,15 +24,12 @@
 \newcommand{\thesistitle}[1]{\def\@thesistitle{#1}}
 \newcommand{\thesistitleen}[1]{\def\@thesistitleen{#1}}
 \newcommand{\thesisauthor}[1]{\def\@thesisauthor{#1}}
-\newcommand{\thesisauthoren}[1]{\def\@thesisauthoren{#1}}
 \newcommand{\advisor}[1]{\def\@advisor{#1}}
-\newcommand{\advisoren}[1]{\def\@advisoren{#1}}
 \newcommand{\coadvisor}[1]{\def\@coadvisor{#1}}
 \newcommand{\classify}[1]{\def\@classify{#1}}      % 分类号
 \newcommand{\unitcode}[1]{\def\@unitcode{#1}}      % 单位代码
 \newcommand{\studentid}[1]{\def\@studentid{#1}}    % 学号
 \newcommand{\confidlevel}[1]{\def\@confidlevel{#1}}% 密级
-\newcommand{\degreetype}[1]{\def\@degreetype{#1}}  % 学位门类（农学/工学/...）
 \newcommand{\degreelevel}[1]{\def\@degreelevel{#1}\def\@thesisdegree{#1}\def\cauthesis@headertext{中国农业大学#1学位论文}}% 学位级别（硕士/博士）
 \newcommand{\thesisdegree}[1]{\degreelevel{#1}}    % 封面副标题与页眉中的学位级别
 \newcommand{\degreecategory}[1]{\def\@degreecategory{#1}}% 申请学位门类级别（农学硕士/农业硕士等）
@@ -45,15 +42,12 @@
 \def\@thesistitle{论文题目}
 \def\@thesistitleen{Thesis Title in English}
 \def\@thesisauthor{研究生姓名}
-\def\@thesisauthoren{Student Name}
 \def\@advisor{导师姓名\quad 职称}
-\def\@advisoren{Advisor Name, Title}
 \def\@coadvisor{}
 \def\@classify{}
 \def\@unitcode{10019}
 \def\@studentid{}
 \def\@confidlevel{}
-\def\@degreetype{农学}
 \def\@degreelevel{硕士/博士}
 \def\@thesisdegree{硕士/博士}
 \def\@degreecategory{}
@@ -68,9 +62,6 @@
 % ============================================================
 \newcommand{\makecover}{%
   \thispagestyle{empty}%
-  \ifx\@degreecategory\empty
-    \edef\@degreecategory{\@degreetype\@degreelevel}%
-  \fi
   \ifx\@fieldname\empty
     \edef\@fieldname{\@major}%
   \fi

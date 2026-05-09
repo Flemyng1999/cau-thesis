@@ -104,8 +104,11 @@
 
 % ============================================================
 % 4. 行距（CAU 规范：正文及图表题等正文性内容 20pt；目录条目 18pt）
+% 各字号命令通过 \fontsize{X}{20pt} 显式指定基线，因此 \baselinestretch
+% 必须保持 1，否则 baselineskip 会被再乘一遍（曾经设为 1.389 是个 bug，
+% 把 20pt 拉到了 27.78pt）。文档级默认字号在 \AtBeginDocument 切到 \xiaosi。
 % ============================================================
-\renewcommand{\baselinestretch}{1.389}
+\renewcommand{\baselinestretch}{1}
 \newcommand{\cau@bodybaselineskip}{20pt}
 \newcommand{\cau@tocbaselineskip}{18pt}
 
@@ -394,6 +397,9 @@
 
 % 正文开始（切换页码）
 \newcommand{\startmainbody}{\mainmatterpages\setcounter{section}{0}}
+
+% 文档级默认字号：小四号宋体 + 行距 20pt（覆盖 LaTeX 默认 \normalsize 12pt/14.4pt）
+\AtBeginDocument{\xiaosi}
 
 % ============================================================
 % 16. 模块化 / SSOT：封面字段 getter + 通用 key-value 变量

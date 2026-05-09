@@ -55,8 +55,8 @@ sudo fc-cache -fs
 
 - 一级中文章号用 zhnum（"第一章"），图、表、公式按章编号（图 1-1, 表 2-2, 公式 3-10）
 - 三线表走 booktabs：顶 / 底线 1.5 pt，栏目线 0.75 pt
+- 表内文字（含 `tabular` / `longtable` 的表头和表体）由 `\AddToHook{env/.../begin}` 自动设为五号宋体
 - 中文 .bib 条目加 `language={chinese}`，让它排进中文区（在 A–Z 之前）
-- `longtable` 表头需要手动加 `\xiaowu\songti`，hook 只把整张表设为五号宋体，不覆盖第一行
 
 完整版式（边距、字号、行距、页眉文武线 etc.）在 `cauthesis-base.sty` 里有注释，对照规范文件看即可。
 
