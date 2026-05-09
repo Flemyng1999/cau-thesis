@@ -112,6 +112,12 @@
 \newcommand{\cau@bodybaselineskip}{20pt}
 \newcommand{\cau@tocbaselineskip}{18pt}
 
+% \topskip 决定每页第一行基线距正文区域顶部的距离。默认 12pt 会让正文页
+% 顶内容紧贴文武线（仅 ~3mm 可视间距），过紧；增至 24pt 给正文 ~7mm
+% 可视间距，与文武线视觉分离。各级标题相应缩减 titleformat 的 \vspace*
+% 以保持原有标题位置不变。
+\setlength{\topskip}{24pt}
+
 % ---- 首行缩进 2 字符 ----
 \setlength{\parindent}{2em}
 
@@ -143,33 +149,26 @@
 % ============================================================
 % 7. 章节标题样式（titlesec）
 % ============================================================
-% 一级（章）：居中黑体三号粗体；自动 \clearpage 独立起页。
-% titleformat 内置 \vspace*{20pt}：章标题距页眉文武线明显有 1 行间距，
-% 与 CAU docx 模板视觉一致。对应地 titlespacing 的 before 设为 0
-% 避免与 \vspace*{20pt} 叠加（mid-page 时 \vspace*{20pt} 也只 20pt
-% 不叠加；页顶时 \vspace*{20pt} 不被丢弃）。
-% 注意：\centerheading（声明 / 摘要 / 致谢等独立页）走另一套规则
-% （\addvspace，页顶贴顶边距），二者侧重不同。
+% 注：因 \topskip 设为 24pt，正文页顶基线本身已下移 ~12pt；下面各级
+% titleformat 的 \vspace* 相应减少，保持标题视觉位置基本不变。
+% 三级 vspace 大小提供视觉层级差异（一级最大 → 三级最小）。
 \newcommand{\cau@levelonefont}{\centering\heiti\sanhao\bfseries}
 \titleformat{\section}
-  {\vspace*{20pt}\cau@levelonefont}{\thesection}{1em}{}
-\titlespacing*{\section}{0pt}{0pt}{20pt}
+  {\vspace*{8pt}\cau@levelonefont}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{12pt}{20pt}
 % \section 自动 \clearpage（每一章另起一页）
 \let\cau@orig@section\section
 \renewcommand{\section}{\clearpage\cau@orig@section}
 
 % 二级：左对齐，黑体，四号 (14pt)；段前段后 1 行 (20pt)。
-% 二/三级在页顶（章节翻页后第一个内容是子标题时）也需要少量可见间距，
-% 但比一级小：靠 titleformat 的 \vspace* 提供页顶 rigid 部分，剩余通过
-% titlespacing 的 \addvspace 补足，使 mid-page 总段前正好 20pt 不叠加。
 \titleformat{\subsection}
-  {\vspace*{10pt}\heiti\sihao}{\thesubsection}{1em}{}
-\titlespacing*{\subsection}{0pt}{10pt}{20pt}
+  {\vspace*{4pt}\heiti\sihao}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{16pt}{20pt}
 
 % 三级：左对齐，黑体，小四号 (12pt)；段前段后 1 行 (20pt)
 \titleformat{\subsubsection}
-  {\vspace*{8pt}\heiti\xiaosi}{\thesubsubsection}{1em}{}
-\titlespacing*{\subsubsection}{0pt}{12pt}{20pt}
+  {\vspace*{2pt}\heiti\xiaosi}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{18pt}{20pt}
 
 % 页眉 \rightmark 显示当前一级标题；研究生规范要求右侧为一级标题名称
 \renewcommand{\sectionmark}[1]{%
@@ -395,7 +394,7 @@
   \clearpage
   \phantomsection\addcontentsline{toc}{section}{致谢}%
   \markright{致谢}%
-  \vspace*{20pt}% 与 \section 一致：标题距页眉文武线下方 1 行可见间距
+  \vspace*{8pt}% 与 \section 一致：标题距页眉文武线下方 ~10mm 可见间距（topskip 24pt 已贡献部分）
   \centerheading{致谢}%
   \xiaosi\songti
   \setlength{\parindent}{2em}%
@@ -410,7 +409,7 @@
   \stepcounter{cauappendixctr}%
   \phantomsection\addcontentsline{toc}{section}{附录\Alph{cauappendixctr}\quad #1}%
   \markright{附录\Alph{cauappendixctr}\quad #1}%
-  \vspace*{20pt}% 与 \section 一致：标题距页眉文武线下方 1 行可见间距
+  \vspace*{8pt}% 与 \section 一致：标题距页眉文武线下方 ~10mm 可见间距（topskip 24pt 已贡献部分）
   \centerheading{附录\Alph{cauappendixctr}\quad #1}%
   \setlength{\parindent}{2em}\xiaosi\songti
 }{\clearpage}
@@ -421,7 +420,7 @@
   \clearpage
   \phantomsection\addcontentsline{toc}{section}{参考文献}%
   \markright{参考文献}%
-  \vspace*{20pt}% 与 \section 一致：标题距页眉文武线下方 1 行可见间距
+  \vspace*{8pt}% 与 \section 一致：标题距页眉文武线下方 ~10mm 可见间距（topskip 24pt 已贡献部分）
   \centerheading{参考文献}%
 }
 

@@ -103,7 +103,7 @@
   \clearpage
   \phantomsection\addcontentsline{toc}{section}{作者简介}%
   \markright{作者简介}%
-  \vspace*{20pt}% 与 \section 一致：标题距页眉文武线下方 1 行可见间距
+  \vspace*{8pt}% 与 \section 一致：标题距页眉文武线下方 ~10mm 可见间距（topskip 24pt 已贡献部分）
   \centerheading{作者简介}%
   \xiaosi\songti
   \setlength{\parindent}{0pt}%
