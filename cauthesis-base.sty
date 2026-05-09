@@ -143,13 +143,17 @@
 % ============================================================
 % 7. 章节标题样式（titlesec）
 % ============================================================
-% 一级（章）：居中黑体三号粗体；自动 \clearpage 独立起页；
-% titlespacing 的 before 用 \addvspace（页顶丢弃，章名靠 \topskip 落在
-% 顶边距下方一点点 ~35mm，与 docx 视觉一致；不再 rigid 推下去）。
+% 一级（章）：居中黑体三号粗体；自动 \clearpage 独立起页。
+% titleformat 内置 \vspace*{20pt}：章标题距页眉文武线明显有 1 行间距，
+% 与 CAU docx 模板视觉一致。对应地 titlespacing 的 before 设为 0
+% 避免与 \vspace*{20pt} 叠加（mid-page 时 \vspace*{20pt} 也只 20pt
+% 不叠加；页顶时 \vspace*{20pt} 不被丢弃）。
+% 注意：\centerheading（声明 / 摘要 / 致谢等独立页）走另一套规则
+% （\addvspace，页顶贴顶边距），二者侧重不同。
 \newcommand{\cau@levelonefont}{\centering\heiti\sanhao\bfseries}
 \titleformat{\section}
-  {\cau@levelonefont}{\thesection}{1em}{}
-\titlespacing*{\section}{0pt}{20pt}{20pt}
+  {\vspace*{20pt}\cau@levelonefont}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{0pt}{20pt}
 % \section 自动 \clearpage（每一章另起一页）
 \let\cau@orig@section\section
 \renewcommand{\section}{\clearpage\cau@orig@section}
