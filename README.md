@@ -2,6 +2,14 @@
 
 中国农业大学论文 LaTeX 模板（非官方），覆盖本科、硕士、博士三类。版式按 [2025 年研究生院《学位论文格式及书写规范》](docs/specs/论文要求（研究生）.pdf)（研生〔2025〕1 号）和 [2020 年本科生院《毕业论文（设计）撰写基本规范》](docs/specs/毕业论文（设计）规范（本科生）.pdf)（本生〔2020〕02 号）。学校官方 Word 模板放在 [`docs/word-templates/`](docs/word-templates) 供对照。
 
+## 效果预览
+
+| 本科封面 | 研究生封面 |
+|:---:|:---:|
+| ![](docs/preview/cover-bachelor.png) | ![](docs/preview/cover-graduate.png) |
+| **目录** | **正文图表（三线表 + 表注 + 引用）** |
+| ![](docs/preview/toc.png) | ![](docs/preview/body-figtable.png) |
+
 ## 用法
 
 ```bash
