@@ -89,7 +89,9 @@
       \begin{tabular}{@{}rl@{}}
         {\sihao\songti\makebox[9em][s]{研究生}：} & \coverlineuline{\@thesisauthor}\\[6pt]
         {\sihao\songti\makebox[9em][s]{指导教师}：} & \coverlineuline{\@advisor}\\[6pt]
+        \ifx\@coadvisor\@empty\else
         {\sihao\songti\makebox[9em][s]{合作指导教师}：} & \coverlineuline{\@coadvisor}\\[6pt]
+        \fi
         {\sihao\songti\makebox[9em][s]{申请学位门类级别}：} & \coverlineuline{\@degreecategory}\\[6pt]
         {\sihao\songti\makebox[9em][s]{专业名称}：} & \coverlineuline{\@fieldname}\\[6pt]
         {\sihao\songti\makebox[9em][s]{研究方向}：} & \coverlineuline{\@researchfield}\\[6pt]

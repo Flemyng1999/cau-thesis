@@ -40,34 +40,42 @@
 \def\@thesisdate{XXXX 年 XX 月}
 
 % ============================================================
-% 封面（本科：校名图 + 副标题 + 中英文题目 + 5 行信息表 + 日期）
-% 参考研究生封面：统一字号布局；用 \stretch{20} 把日期吸到页底
+% 封面（本科：校名图 + 副标题 + 中英文题目 + 信息表 + 日期）
+% 与研究生封面共用 minipage[t][\textheight][s] 框架以保证元素对齐：
+%   研究生顶部有"分类号 / 单位代码 / 密级 / 学号"两行；
+%   本科没有这些字段，用相同高度的占位空白替代。
 % ============================================================
 \newcommand{\makecover}{%
   \thispagestyle{empty}%
-  \vspace*{15mm}
-  \begin{center}
-    \includegraphics[width=10cm]{cau-title.pdf}\\[4mm]
-    {\heiti\fontsize{18pt}{22pt}\selectfont\textbf{本科生毕业论文（设计）}}
-  \end{center}
-  \vspace{20mm}
-  \begin{center}
-    {\heiti\erhao\textbf{\@thesistitle}}\\[5mm]
-    {\fontsize{16pt}{20pt}\selectfont\textbf{\@thesistitleen}}
-  \end{center}
-  \vspace{20mm}
-  \begin{center}
-    \begin{tabular}{@{}rl@{}}
-      {\sihao\songti\makebox[9em][s]{学生姓名}：} & \coverlineuline{\@thesisauthor}\\[6pt]
-      {\sihao\songti\makebox[9em][s]{指导教师}：} & \coverlineuline{\@advisor}\\[6pt]
-      {\sihao\songti\makebox[9em][s]{合作指导教师}：} & \coverlineuline{\@coadvisor}\\[6pt]
-      {\sihao\songti\makebox[9em][s]{专业名称}：} & \coverlineuline{\@major}\\[6pt]
-      {\sihao\songti\makebox[9em][s]{所在学院}：} & \coverlineuline{\@college}\\[6pt]
-    \end{tabular}
-  \end{center}
-  \vspace*{\stretch{20}}
-  \begin{center}{\sihao\songti\@thesisdate}\end{center}
-  \vspace*{8mm}
+  \noindent\begin{minipage}[t][\textheight][s]{\textwidth}%
+    \noindent\strut\par% baseline 锚点（minipage[t] 顶部需要有 strut 撑出基线，否则后续 \vspace* 会把内容推到下一页）
+    % 顶部占位（对齐研究生 2 行 \xiaosi 字段：~46pt ≈ 16.2mm）
+    \vspace*{16.2mm}%
+    \par\vspace*{12mm}
+    \begin{center}
+      \includegraphics[width=10cm]{cau-title.pdf}\\[4mm]
+      {\heiti\fontsize{18pt}{22pt}\selectfont\textbf{本科生毕业论文（设计）}}
+    \end{center}
+    \vspace{18mm}
+    \begin{center}
+      {\heiti\erhao\textbf{\@thesistitle}}\\[5mm]
+      {\fontsize{16pt}{20pt}\selectfont\textbf{\@thesistitleen}}
+    \end{center}
+    \vspace{18mm}
+    \begin{center}
+      \begin{tabular}{@{}rl@{}}
+        {\sihao\songti\makebox[9em][s]{学生姓名}：} & \coverlineuline{\@thesisauthor}\\[6pt]
+        {\sihao\songti\makebox[9em][s]{指导教师}：} & \coverlineuline{\@advisor}\\[6pt]
+        \ifx\@coadvisor\@empty\else
+        {\sihao\songti\makebox[9em][s]{合作指导教师}：} & \coverlineuline{\@coadvisor}\\[6pt]
+        \fi
+        {\sihao\songti\makebox[9em][s]{专业名称}：} & \coverlineuline{\@major}\\[6pt]
+        {\sihao\songti\makebox[9em][s]{所在学院}：} & \coverlineuline{\@college}\\[6pt]
+      \end{tabular}
+    \end{center}
+    \vfill
+    \begin{center}{\sihao\songti\@thesisdate}\end{center}
+  \end{minipage}%
   \clearpage
 }
 

@@ -282,8 +282,9 @@
   \bibliographystyle{gbt7714-author-year}%
   \setcitestyle{authoryear,round,semicolon,aysep={,},yysep={,}}%
 }
-\renewcommand{\bibfont}{\wuhao\songti}
-% 参考文献条目内/条目间统一 20pt 行距（\wuhao 已设置 baseline=20pt，禁用条目间额外空白）
+% 参考文献：五号宋体 + 16pt 行距（1.52×，常见中文论文值；规范无硬性要求，
+% \wuhao 默认 20pt 行距视觉太松所以单独压窄）；条目间不加额外空白
+\renewcommand{\bibfont}{\fontsize{10.5pt}{16pt}\selectfont\songti}
 \setlength{\bibsep}{0pt}
 
 % ============================================================
