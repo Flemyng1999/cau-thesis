@@ -51,9 +51,9 @@
     \noindent\strut\par% baseline 锚点（minipage[t] 需要先有 horizontal mode 内容）
     % graduate 顶部 2 行 \xiaosi 字段共占 ~14mm（2 × 20pt baseline）+ 6pt 内
     % 部 vspace + \vspace*{12mm} = ~28mm。bachelor 用 strut（占 1 行 = ~7mm）
-    % 替代 graduate 的 2 行文字，差 ~7mm；再加 graduate 的 12mm vspace +
-    % 自身需要补 ~9mm 差额 = 21mm，让 logo 与 graduate 同一垂直位置。
-    \vspace*{21mm}%
+    % 替代 graduate 的 2 行文字，差 ~7mm；vspace 取 20mm 抵消差额，让 logo
+    % 与 graduate 同一垂直位置（实测两边 logo top y 差 < 1px）。
+    \vspace*{20mm}%
     \begin{center}
       \includegraphics[width=10cm]{cau-title.pdf}\\[4mm]
       {\heiti\fontsize{18pt}{22pt}\selectfont\textbf{本科生毕业论文（设计）}}
