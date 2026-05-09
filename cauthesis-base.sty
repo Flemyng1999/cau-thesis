@@ -304,13 +304,14 @@
 % ============================================================
 % 14. 共用 helper（特殊页面标题居中黑体三号加粗）
 % ============================================================
-% 段前/段后均按 CAU 规范取 1 行 (= 20pt)，用 \addvspace 取最大值非叠加。
-% 页顶情况下 \addvspace 会被 LaTeX 丢弃，标题位置由 \topskip 决定 ——
-% 这与 docx 模板一致（封面后 / 独立页的标题靠近顶边距，不再额外下推）。
-% 调用方若想在两个 centerheading 之间保留更大间距（如独创性声明 + 关于
-% 学位论文使用授权的说明），需要在外层显式加 \vspace。
+% 段后取 \addvspace{20pt}（非叠加 1 行）；段前的可见间距交由调用方控制：
+% - 在 cau-frontmatter / empty 页（无文武线，如声明/摘要/目录/创新点）：
+%   不在调用方加任何前置 \vspace*，标题靠 \topskip 落到 ~35mm 贴顶边距
+% - 在 cau-mainmatter 页（有文武线，如参考文献/致谢/附录/作者简介）：
+%   调用方在 \centerheading 之前显式加 \vspace*{20pt}，与 \section 章
+%   标题位置一致（距文武线 ~14mm 可见间距）
 \def\centerheading#1{%
-  \par\addvspace{20pt}{\centering\heiti\sanhao\bfseries #1\par}\addvspace{20pt}%
+  \par{\centering\heiti\sanhao\bfseries #1\par}\addvspace{20pt}%
 }
 \def\coverlineuline#1{\underline{\makebox[12em][l]{\sihao\songti #1}}}
 % 顶部分类号/密级行的点线（匹配 Word 模板的 leader dots）
