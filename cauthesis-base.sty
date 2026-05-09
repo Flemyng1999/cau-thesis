@@ -64,17 +64,18 @@
   {\setmonofont{TeX Gyre Cursor}}
   {\setmonofont{Courier}}
 
+% macOS 优先用系统中文字体；其他系统回退到 TeX Live 自带的 Fandol。
+% \kaishu / \fangsong 字体族暴露给正文使用（强调、引文等场景）。
 \IfFontExistsTF{Songti SC}
   {%
-    \setCJKmainfont[BoldFont=Songti SC Bold, ItalicFont=Noto Sans Kaithi]{Songti SC}
+    \setCJKmainfont[BoldFont=Songti SC Bold]{Songti SC}
     \setCJKsansfont{Heiti SC}
     \setCJKmonofont{Songti SC}
     \newCJKfontfamily\songti{Songti SC}
     \newCJKfontfamily\heiti{Heiti SC}
-    \newCJKfontfamily\kaishu{Noto Sans Kaithi}
-    \newCJKfontfamily\fangsong{Songti SC}
+    \newCJKfontfamily\kaishu{STKaiti}
+    \newCJKfontfamily\fangsong{STFangsong}
   }
-  {\IfFontExistsTF{FandolSong}
   {%
     \setCJKmainfont[BoldFont=FandolHei, ItalicFont=FandolKai]{FandolSong}
     \setCJKsansfont{FandolHei}
@@ -84,19 +85,6 @@
     \newCJKfontfamily\kaishu{FandolKai}
     \newCJKfontfamily\fangsong{FandolFang}
   }
-  {%
-    \setCJKmainfont[BoldFont=Songti SC Bold, ItalicFont=Noto Sans Kaithi]{Songti SC}
-    \setCJKsansfont{Heiti SC}
-    \setCJKmonofont{Songti SC}
-    \newCJKfontfamily\songti{Songti SC}
-    \newCJKfontfamily\heiti{Heiti SC}
-    \newCJKfontfamily\kaishu{Noto Sans Kaithi}
-    \newCJKfontfamily\fangsong{Songti SC}
-  }}
-% 封面校名图用大字楷书（如不用图、改用字体）
-\IfFontExistsTF{LXGW ZhenKai GB}
-  {\newCJKfontfamily\coverkaishu{LXGW ZhenKai GB}}
-  {\newCJKfontfamily\coverkaishu{FandolKai}}
 
 % ============================================================
 % 3. 版芯（CAU 规范：左 30 / 右 25 / 上 30 / 下 25 mm；页眉 23mm，页脚 18mm）

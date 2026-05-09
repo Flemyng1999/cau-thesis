@@ -29,7 +29,8 @@ latexmk -xelatex main.tex
 ## 依赖
 
 - TeX Live 2024+ full scheme（或 MacTeX / MiKTeX 等价），编译走 xelatex + bibtex
-- 中文字体：Fandol 自带就够了。封面"中国农业大学"四字楷书优先用 [LXGW ZhenKai GB](https://github.com/lxgw/LxgwZhenKai)，缺失会自动回退到 FandolKai
+- 中文字体：Fandol（TeX Live 自带）就够了。macOS 上优先用系统的 Songti SC / Heiti SC / STKaiti / STFangsong
+- 封面"中国农业大学"六字书法是 `logo/cau-title.pdf`（图片，不是字体）
 
 Linux 上 TeX Live 字体可能没注册到 fontconfig：
 
