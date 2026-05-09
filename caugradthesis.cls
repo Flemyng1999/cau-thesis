@@ -65,7 +65,7 @@
   \ifx\@fieldname\empty
     \edef\@fieldname{\@major}%
   \fi
-  \noindent\begin{minipage}[t][\textheight][s]{\textwidth}%
+  \noindent\begin{minipage}[t][\dimexpr\textheight-12pt\relax][s]{\textwidth}%
     {\xiaosi\songti
       \noindent
       \makebox[5.5em][s]{分类号}：\coverdotuline{10em}{\@classify}\hfill
@@ -118,7 +118,7 @@
     \vspace{4em}%
     \noindent 学位论文作者签名：\underline{\hspace{8em}}\hfill 时间：\hspace{3em}年\hspace{2em}月\hspace{2em}日\par
   \endgroup
-  \vspace{4em}% 与"关于学位论文使用授权的说明"显式分隔（约 30mm，匹配 docx 视觉间距）
+  \vspace{6em}% 与"关于学位论文使用授权的说明"显式分隔（约 25mm，让两个独立声明视觉清晰分开）
 }
 
 % ============================================================

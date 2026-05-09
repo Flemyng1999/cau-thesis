@@ -47,7 +47,7 @@
 % ============================================================
 \newcommand{\makecover}{%
   \thispagestyle{empty}%
-  \noindent\begin{minipage}[t][\textheight][s]{\textwidth}%
+  \noindent\begin{minipage}[t][\dimexpr\textheight-12pt\relax][s]{\textwidth}%
     \noindent\strut\par% baseline 锚点（minipage[t] 顶部需要有 strut 撑出基线，否则后续 \vspace* 会把内容推到下一页）
     % 顶部占位（对齐研究生 2 行 \xiaosi 字段：~46pt ≈ 16.2mm）
     \vspace*{16.2mm}%
