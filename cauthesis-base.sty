@@ -394,7 +394,9 @@
 }{\clearpage}
 
 % 参考文献标题（natbib \bibliography 自动调用）
+% 参考文献单独起页，与正文末节分开
 \renewcommand{\bibsection}{%
+  \clearpage
   \phantomsection\addcontentsline{toc}{section}{参考文献}%
   \markright{参考文献}%
   \centerheading{参考文献}%

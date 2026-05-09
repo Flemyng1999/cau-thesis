@@ -1,10 +1,17 @@
 \section{结果与分析}\label{ch:results}
 
-\subsection{数据统计特征}
+\subsection{数据统计特征}\label{sec:stat}
 
-【本节填写数据分布和质量检查结果。建议先描述样本量、均值、范围和异常值，再解释这些统计特征对建模的影响。】
+\subsubsection{数据划分}
 
-样本统计结果见表\ref{tab:sample-stat}。从示例结果可以看出，不同数据子集在样本量和目标变量均值上存在差异，因此后续建模需要关注数据划分是否引入偏差。
+【三级标题示例。说明训练 / 验证 / 测试集划分方式与样本比例。】
+
+按训练 / 验证 / 测试 7:2:1 分层抽样，三个子集互不相交，样本量满足
+\begin{equation}
+n_{\mathrm{total}} = n_{\mathrm{train}} + n_{\mathrm{val}} + n_{\mathrm{test}}.
+\end{equation}
+
+具体样本统计结果见表\ref{tab:sample-stat}，预测结果空间分布见图\ref{fig:result-map}。
 
 \begin{table}[ht]
   \centering
@@ -22,21 +29,19 @@
   \tablenote{表中数值为占位示例，定稿前应替换为真实统计结果。}
 \end{table}
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.55\textwidth]{fig1.png}
+  \caption{模型预测结果空间分布示例}
+  \label{fig:result-map}
+  \figurenote{底图为示例图片，定稿时应替换为论文真实结果图。}
+\end{figure}
+
 \subsection{模型精度评价}
 
 【本节填写核心结果。建议所有主要结论都绑定表格或图，避免只给定性描述。】
 
-图\ref{fig:result-map}展示了模型预测结果的空间分布。可以看出，预测值在【高值区域】和【低值区域】之间存在明显差异，说明模型能够刻画研究对象的空间异质性。
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.78\textwidth]{fig1.png}
-  \caption{模型预测结果空间分布示例}
-  \label{fig:result-map}
-  \figurenote{底图为示例图片，定稿时应替换为论文真实结果图，并在图注中说明颜色、符号或分组含义。}
-\end{figure}
-
-不同模型或不同实验方案的精度对比如表\ref{tab:model-performance}所示。结果表明，【模型 A】在测试集上取得最优表现，说明【解释原因】。
+不同模型或实验方案的精度对比如表\ref{tab:model-performance}所示。结果表明，【模型 A】在测试集上取得最优表现，说明【解释原因】。
 
 \begin{table}[ht]
   \centering

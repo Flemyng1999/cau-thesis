@@ -7,8 +7,8 @@
 | 本科封面 | 研究生封面 |
 |:---:|:---:|
 | ![](docs/preview/cover-bachelor.png) | ![](docs/preview/cover-graduate.png) |
-| **目录** | **正文图表（三线表 + 表注 + 引用）** |
-| ![](docs/preview/toc.png) | ![](docs/preview/body-figtable.png) |
+| **正文（一/二/三级标题 + 公式 + 三线表 + 图）** | **参考文献（GB/T 7714 著者-出版年制）** |
+| ![](docs/preview/body-figtable.png) | ![](docs/preview/references.png) |
 
 ## 用法
 
